@@ -1,15 +1,20 @@
 from typing import Union
-
+from enum import Enum
 from fastapi import FastAPI
-from pydantic import BaseModel
+from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 app = FastAPI()
 
+class Status(str, Enum):
+    pending = "pending"
+    approved = "approved"
+    shipped = "shipped"
 
-class Item(BaseModel):
-    name: str
-    price: float
-    is_offer: Union[bool, None] = None
+class Hero(SQLModel, table=True):
+    id: int = Field(primary_key=True)
+    name: str = Field(index=True)
+    quantity: int
+    status: Status = Field(default=Status.pending)
 
 
 @app.get("/")
