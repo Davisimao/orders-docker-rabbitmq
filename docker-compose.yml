@@ -1,7 +1,19 @@
 version: "3.9"
 
 services:
-  db:
+  api:
+    build: .
+    container_name: fastapi_api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres_db
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  postgres_db:
     image: postgres:15
     container_name: postgres_db
     environment:
@@ -17,19 +29,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: fastapi_api
-    ports:
-      - "8000:8000"
-    environment:
-      DATABASE_URL: postgres://myuser:mypassword@db:5432/orders_db
-    depends_on:
-      db:
-        condition: service_healthy
 
 volumes:
   postgres_data:
