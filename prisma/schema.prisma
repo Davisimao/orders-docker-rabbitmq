@@ -14,8 +14,14 @@ datasource db {
 }
 
 model Order {
-  id_order        String @id @default(uuid())
+  id_order        String       @id @default(uuid())
   ds_product_name String
   ds_quantity     Int
-  ds_status       String @default("pending")
+  ds_status       StatusOption @default(pending)
+}
+
+enum StatusOption {
+  pending
+  approved
+  shipped
 }
