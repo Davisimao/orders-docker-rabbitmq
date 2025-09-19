@@ -22,4 +22,15 @@ async getOrderById(id_order: string) {
     if (!order) throw new NotFoundException(`Order with ID ${id_order} not found`);
     return order;
   }
+
+deletebyId(id_order : string) {
+  const order = this.prisma.order.delete({
+      where: { id_order },
+    })
+
+   if (!order) throw new NotFoundException(`Order with ID ${id_order} not found`);
+    return {
+      'message' : `${id_order} delete with sucess!`
+    }
+}  
 }
