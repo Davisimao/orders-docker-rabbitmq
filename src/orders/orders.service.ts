@@ -10,4 +10,8 @@ export class OrdersService {
    
       return this.prisma.order.create({data})
   }
+
+  getAll(){
+    return this.prisma.order.findMany()
+  }
 }
