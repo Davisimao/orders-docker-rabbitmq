@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 
 @Controller('orders')
@@ -19,6 +19,11 @@ export class OrdersController {
   @Get(':id')
   getbyId(@Param('id') id : string ){
     return this.ordersService.getOrderById(id)
+  }
+
+  @Put(':id')
+  updatebyId(@Param('id') id : string , @Body() body : {ds_product_name : string}){
+    return this.ordersService.updatebyId(id, body.ds_product_name)
   }
 
   @Delete(':id')
