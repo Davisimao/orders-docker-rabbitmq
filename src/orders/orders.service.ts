@@ -23,8 +23,8 @@ async getOrderById(id_order: string) {
     return order;
   }
 
-deletebyId(id_order : string) {
-  const order = this.prisma.order.delete({
+async deletebyId(id_order : string) {
+  const order = await this.prisma.order.delete({
       where: { id_order },
     })
 
