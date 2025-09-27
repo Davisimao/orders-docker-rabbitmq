@@ -32,7 +32,7 @@ model User {
   id_user      String  @id @default(uuid())
   ds_email     String  @unique
   cd_document  String  @unique
-  ds_password  String?
+  ds_password  String
   ds_full_name String
   Order        Order[]
 }

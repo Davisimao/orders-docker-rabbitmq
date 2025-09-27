@@ -7,7 +7,15 @@ export class UsersController {
 
   @Post()
   @HttpCode(201)
-  createUser(@Body() data: { ds_full_name: string; ds_email: string; cd_document: string }) {
+  createUser(
+    @Body()
+    data: {
+      ds_full_name: string;
+      ds_email: string;
+      cd_document: string;
+      ds_password: string;
+    },
+  ) {
     return this.userService.createUser(data);
   }
 
