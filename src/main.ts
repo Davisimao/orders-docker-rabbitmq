@@ -9,16 +9,6 @@ async function bootstrap() {
   const reflector = app.get(Reflector);
   app.useGlobalGuards(new JwtAuthGuard(reflector));
 
-  // conecta como microservice
-  app.connectMicroservice<MicroserviceOptions>({
-    transport: Transport.RMQ,
-    options: {
-      urls: ['amqp://admin:admin@localhost:5672'],
-      queue: 'orders_queue',
-      queueOptions: { durable: true },
-    },
-  });
-
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true, // remove propriedades extras
