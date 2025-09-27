@@ -18,6 +18,8 @@ model Order {
   ds_product_name String
   ds_quantity     Int
   ds_status       StatusOption @default(pending)
+  ds_created_by   User         @relation(fields: [id_user], references: [id_user])
+  id_user         String
 }
 
 enum StatusOption {
@@ -27,5 +29,8 @@ enum StatusOption {
 }
 
 model User {
-  id_user String @id @default(uuid())
+  id_user     String  @id @default(uuid())
+  ds_email    String  @unique
+  ds_document String  @unique
+  Order       Order[]
 }
