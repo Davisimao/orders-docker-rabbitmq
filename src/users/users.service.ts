@@ -31,6 +31,11 @@ export class UsersService {
     return user;
   }
 
+  async getUserbyEmail(ds_email: string) {
+    const user = await this.prisma.user.findUnique({ where: { ds_email } });
+    return user;
+  }
+
   deleteUser(id_user: string) {
     return this.prisma.user.delete({ where: { id_user } });
   }

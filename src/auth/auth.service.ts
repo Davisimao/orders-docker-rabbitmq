@@ -1,8 +1,10 @@
 // auth.service.ts
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma.service';
 import { UsersService } from 'src/users/users.service';
+import * as bcrypt from 'bcrypt';
+import { error } from 'console';
 
 @Injectable()
 export class AuthService {
@@ -12,12 +14,18 @@ export class AuthService {
     private readonly usersService: UsersService,
   ) {}
 
-  async login(id_user: string, ds_email: string) {
-    // Aqui seria interessante validar no banco
-    const user = await this.usersService.getUserbyId(id_user);
-    console.log('🚀 + AuthService + login + user:', user);
+  async login(ds_password: string, ds_email: string) {
+    const user = await this.usersService.getUserbyEmail(ds_email);
+    if (!user) {
+      throw new UnauthorizedException('email ou senha inválidos');
+    }
 
-    const payload = { email: ds_email, sub: id_user };
+    const passwordValid = await bcrypt.compare(ds_password, user.ds_password);
+    if (!passwordValid) {
+      throw new UnauthorizedException('email ou senha inválidos');
+    }
+
+    const payload = { email: ds_email, sub: user.id_user };
 
     return {
       access_token: this.jwtService.sign(payload),

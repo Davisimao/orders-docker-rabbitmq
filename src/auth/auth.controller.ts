@@ -7,7 +7,7 @@ export class AuthController {
 
   @Post('login')
   @HttpCode(200)
-  login(@Body('id_user') id_user: string, @Body('ds_email') ds_email: string) {
-    return this.authService.login(id_user, ds_email);
+  login(@Body('ds_password') ds_password: string, @Body('ds_email') ds_email: string) {
+    return this.authService.login(ds_password, ds_email);
   }
 }
