@@ -25,3 +25,7 @@ enum StatusOption {
   approved
   shipped
 }
+
+model User {
+  id_user String @id @default(uuid())
+}

@@ -6,19 +6,22 @@ import { PrismaService } from './prisma.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
-  imports: [OrdersModule, ClientsModule.register([
-    {
-      name: 'ORDERS_SERVICE', // identificador do client
-      transport: Transport.RMQ,
-       options: {
+  imports: [
+    OrdersModule,
+    ClientsModule.register([
+      {
+        name: 'ORDERS_SERVICE', // identificador do client
+        transport: Transport.RMQ,
+        options: {
           urls: ['amqp://admin:admin@localhost:5672'], // URL do RabbitMQ
           queue: 'orders_queue', // nome da fila
           queueOptions: {
             durable: true, // fila persistente
           },
         },
-    }
-  ])],
+      },
+    ]),
+  ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })

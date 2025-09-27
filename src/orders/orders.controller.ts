@@ -12,22 +12,22 @@ export class OrdersController {
   }
 
   @Get()
-  getAll(){
-    return this.ordersService.getAll()
+  getAll() {
+    return this.ordersService.getAll();
   }
 
   @Get(':id')
-  getbyId(@Param('id') id : string ){
-    return this.ordersService.getOrderById(id)
+  getbyId(@Param('id') id: string) {
+    return this.ordersService.getOrderById(id);
   }
 
   @Put(':id')
-  updatebyId(@Param('id') id : string , @Body() body : {ds_product_name : string}){
-    return this.ordersService.updatebyId(id, body.ds_product_name)
+  updatebyId(@Param('id') id: string, @Body() body: { ds_product_name: string }) {
+    return this.ordersService.updatebyId(id, body.ds_product_name);
   }
 
   @Delete(':id')
-  deletebyId(@Param('id') id : string){
-    return this.ordersService.deletebyId(id)
+  deletebyId(@Param('id') id: string) {
+    return this.ordersService.deletebyId(id);
   }
 }
