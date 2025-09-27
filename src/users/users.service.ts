@@ -10,6 +10,14 @@ export class UsersService {
     return this.prisma.user.create({ data });
   }
 
+  getAllusers() {
+    return this.prisma.user.findMany();
+  }
+
+  getUserbyId(id_user: string) {
+    return this.prisma.user.findUnique({ where: { id_user } });
+  }
+
   deleteUser(id_user: string) {
     return this.prisma.user.delete({ where: { id_user } });
   }
