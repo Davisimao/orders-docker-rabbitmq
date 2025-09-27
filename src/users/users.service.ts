@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
@@ -21,8 +21,14 @@ export class UsersService {
     return this.prisma.user.findMany();
   }
 
-  getUserbyId(id_user: string) {
-    return this.prisma.user.findUnique({ where: { id_user } });
+  async getUserbyId(id_user: string) {
+    const user = await this.prisma.user.findUnique({ where: { id_user } });
+
+    if (!user) {
+      throw new BadRequestException('Usuário não existe');
+    }
+
+    return user;
   }
 
   deleteUser(id_user: string) {
