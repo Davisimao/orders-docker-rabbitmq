@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
 import { OrdersService } from './orders.service';
+import { User } from '@prisma/client';
 
 @Controller('orders')
 export class OrdersController {
@@ -7,7 +8,7 @@ export class OrdersController {
 
   @Post()
   @HttpCode(201)
-  create(@Body() body: { ds_product_name: string; ds_quantity: number }) {
+  create(@Body() body: { ds_product_name: string; ds_quantity: number; id_user: string }) {
     return this.ordersService.create(body);
   }
 

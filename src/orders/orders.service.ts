@@ -4,14 +4,14 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Order } from '@prisma/client';
+import { Order, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class OrdersService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: { ds_product_name: string; ds_quantity: number }): Promise<Order> {
+  create(data: { ds_product_name: string; ds_quantity: number; id_user: string }): Promise<Order> {
     return this.prisma.order.create({ data });
   }
 
